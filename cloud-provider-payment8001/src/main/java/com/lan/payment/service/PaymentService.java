@@ -1,7 +1,7 @@
-package com.lan.springcloud.service;
+package com.lan.payment.service;
 
-import com.lan.springcloud.dao.PaymentDao;
-import com.lan.springcloud.entities.Payment;
+import com.lan.payment.dao.PaymentDao;
+import com.lan.payment.entities.Payment;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

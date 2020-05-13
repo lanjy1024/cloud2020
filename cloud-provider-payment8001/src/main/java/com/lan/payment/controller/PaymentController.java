@@ -1,11 +1,10 @@
-package com.lan.springcloud.controller;
+package com.lan.payment.controller;
 
-import com.lan.springcloud.entities.Payment;
-import com.lan.springcloud.response.CommonResult;
-import com.lan.springcloud.service.PaymentService;
+import com.lan.payment.entities.Payment;
+import com.lan.common.response.CommonResult;
+import com.lan.payment.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -34,6 +33,6 @@ public class PaymentController {
     @GetMapping("/get/{id}")
     public CommonResult<Payment> getPayment(@PathVariable("id") Long id){
         Payment payment = paymentService.getPaymentById(id);
-        return new CommonResult<Payment>("1000","查询成功",payment);
+        return new CommonResult("1000","查询成功",payment);
     }
 }
