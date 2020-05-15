@@ -20,12 +20,15 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/order")
 public class OrderController {
 
+//    public static final String PAYMENT_URL = "http://localhost:8001";
+    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
+
     @Autowired
     private RestTemplate restTemplate;
 
     @GetMapping("/payment/{orderId}")
     public CommonResult getPayment(@PathVariable("orderId") String orderId){
-        ResponseEntity<CommonResult> responseEntity = restTemplate.getForEntity("http://localhost:8001/payment/get/" + orderId, CommonResult.class);
+        ResponseEntity<CommonResult> responseEntity = restTemplate.getForEntity(PAYMENT_URL+"/payment/get/" + orderId, CommonResult.class);
         return responseEntity.getBody();
 
     }
