@@ -1,18 +1,18 @@
 package com.lan.order.controller;
 
 import com.lan.common.response.CommonResult;
+import com.lan.order.service.PaymentFeignService;
+import com.lan.payment.entities.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author：lanjy
- * @date：2020/5/12
+ * @date：2020/6/1
  * @description：
  */
 @RestController
@@ -20,20 +20,16 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/order")
 public class OrderController {
 
-//    public static final String PAYMENT_URL = "http://localhost:8001";
-    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
-
     @Autowired
-    private RestTemplate restTemplate;
+    private PaymentFeignService paymentFeignService;
 
     @GetMapping("/payment/{orderId}")
     public CommonResult getPayment(@PathVariable("orderId") String orderId){
-//        ResponseEntity<CommonResult> responseEntity =
-//                restTemplate.getForEntity(PAYMENT_URL+"/payment/get/" + orderId, CommonResult.class);
-//        return responseEntity.getBody();
-        return restTemplate.getForObject(PAYMENT_URL + "/payment/get/" + orderId, CommonResult.class);
+        CommonResult<Payment> commonResult = paymentFeignService.getPayment(orderId);
 
+        commonResult.setMessage(commonResult.getMessage()+",通过feign调用");
 
+        return commonResult;
     }
 
 }
